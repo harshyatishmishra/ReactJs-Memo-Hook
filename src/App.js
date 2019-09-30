@@ -1,38 +1,33 @@
-import React, { Component, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import './App.css';
 import Child from './Child/child'
 
-class App extends Component {
+const App = () => {
 
-  state = {
-    i: 0
+  const [i, setI] = useState(0);
+
+  const onClickHandler = () => {
+    setI(i + 1);
   }
 
-  onClickHandler = () => {
-    this.setState({
-      i: this.state.i + 1
-    })
-  }
-
-  memoChild = useMemo(() => {
+  const memoChild = useMemo(() => {
     return <Child />
   }, []);
+  //   }, [i]); if pass the i it will work as the Normal Render
 
-  render() {
 
-    return (
-      <div className="App" >
-        <h2>i: {this.state.i}</h2>
-        <button onClick={this.onClickHandler}>Increment I</button>
+  return (
+    <div className="App" >
+      <h2>i: {i}</h2>
+      <button onClick={onClickHandler}>Increment I</button>
 
-        <h3>Normal Render</h3>
-        <Child></Child>
+      <h3>Normal Render</h3>
+      <Child></Child>
 
-        <h3>Memo Render</h3>
-        {this.memoChild}
-      </div >
-    );
-  }
+      <h3>Memo Render</h3>
+      {memoChild}
+    </div >
+  );
 }
 
 export default App;
